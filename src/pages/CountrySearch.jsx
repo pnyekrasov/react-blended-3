@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchByRegion } from 'service/country-service';
 
 export const CountrySearch = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,14 +24,10 @@ export const CountrySearch = () => {
       .finally(() => setIsLoading(false));
   }, [searchParams]);
 
-  const searchRegion = region => {
-    setSearchParams({ region });
-  };
-
   return (
     <Section>
       <Container>
-        <SearchForm searchRegion={searchRegion} />
+        <SearchForm />
         {isLoading ? <Loader /> : <CountryList countries={countries} />}
       </Container>
     </Section>

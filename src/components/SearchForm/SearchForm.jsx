@@ -1,10 +1,11 @@
 import { FiSearch } from 'react-icons/fi';
 import { BtnSearch, Select, SearchFormStyled } from './SearchForm.styled';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-export const SearchForm = ({ searchRegion }) => {
+export const SearchForm = () => {
   const [region, setRegion] = useState('');
-
+  const [_, setSearchParams] = useSearchParams();
   const handleChange = e => {
     setRegion(e.target.value);
   };
@@ -12,7 +13,7 @@ export const SearchForm = ({ searchRegion }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (!region) return;
-    searchRegion(region);
+    setSearchParams({ region });
   };
   return (
     <SearchFormStyled onSubmit={handleSubmit}>
