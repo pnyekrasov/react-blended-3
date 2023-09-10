@@ -1,10 +1,21 @@
-import { Container, CountryList, Heading, Loader, Section } from 'components';
+import { Container, CountryList, Loader, Section } from 'components';
+import { useEffect, useState } from 'react';
+import { getCountries } from 'service/country-service';
 
 export const Home = () => {
+  const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    getCountries()
+      .then(setCountries)
+      .finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <Section>
       <Container>
-        <h2>Home</h2>
+        {!isLoading ? <CountryList countries={countries} /> : <Loader />}
       </Container>
     </Section>
   );
